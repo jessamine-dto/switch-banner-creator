@@ -6,7 +6,7 @@ body {
 
 #container {
 	border: 1px solid #000000;
-	box-shadow: 0 0 1rem 1rem #000000;
+	box-shadow: 0 0 2rem 1rem #000000;
 
 	position: absolute;
 	top: 50%;
@@ -20,7 +20,7 @@ body {
 	padding: 2rem;
 	border-radius: 1rem;
 
-	width: 50%;
+	width: 50vmax;
 	aspect-ratio: 3 / 2;
 
 	justify-content: space-around;
@@ -58,5 +58,3 @@ body {
 #output {
 	height: 70%;
 }
-
-
