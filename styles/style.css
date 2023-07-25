@@ -1,12 +1,13 @@
 body {
-	background-color: #242424;
+	background-color: #212121;
 }
 
 
 
 #container {
+	background-color: #2c2c2c;
 	border: 1px solid #000000;
-	box-shadow: 0 0 2rem 1rem #000000;
+	box-shadow: 0 0 1rem 0.1rem #000000;
 
 	position: absolute;
 	top: 50%;
@@ -17,11 +18,11 @@ body {
 	display: flex;
 	flex-direction: column;
 
-	padding: 2rem;
+	padding: 2.5rem;
 	border-radius: 1rem;
 
-	width: 50vmax;
-	aspect-ratio: 3 / 2;
+	width: 75vmax;
+	aspect-ratio: 7 / 3;
 
 	justify-content: space-around;
 }
@@ -29,7 +30,7 @@ body {
 
 
 #input {
-	background-color: #333333;
+	background-color: #424242;
 	outline: none;
 
 	box-sizing: border-box;
@@ -57,4 +58,13 @@ body {
 
 #output {
 	height: 70%;
+
+	background-color: #000;
+	color: #fff;
+
+	padding: 1rem;
+
+	border: none;
+	outline: none;
+	resize: none;
 }
