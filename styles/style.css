@@ -1,0 +1,62 @@
+body {
+	background-color: #242424;
+}
+
+
+
+#container {
+	border: 1px solid #000000;
+	box-shadow: 0 0 1rem 1rem #000000;
+
+	position: absolute;
+	top: 50%;
+	left: 50%;
+
+	transform: translate(-50%, -50%);
+
+	display: flex;
+	flex-direction: column;
+
+	padding: 2rem;
+	border-radius: 1rem;
+
+	width: 50%;
+	aspect-ratio: 3 / 2;
+
+	justify-content: space-around;
+}
+
+
+
+#input {
+	background-color: #333333;
+	outline: none;
+
+	box-sizing: border-box;
+	border: none;
+	border-bottom: 1px solid transparent;
+
+	transition: border-bottom 0.15s ease-in;
+
+	color: white;
+	text-align: center;
+
+	padding: 0.5rem;
+	font-size: 120%;
+
+	height: 10%;
+}
+
+
+
+#input:focus-within {
+	border-bottom: 1px solid white;
+}
+
+
+
+#output {
+	height: 70%;
+}
+
+
