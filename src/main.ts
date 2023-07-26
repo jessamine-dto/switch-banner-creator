@@ -62,6 +62,7 @@ function generateBanner() {
 	outputLines.push(...centerArray(figgedLines, targetLength));
 	outputLines.push("*".repeat(targetLength));
 
+
 	const joined = outputLines
 		.map(line => line.trimEnd())
 		.filter(line => line !== "")

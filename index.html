@@ -8,6 +8,7 @@
 		<meta name="description" content="Creates login banners for JCS' ExtremeOS switches.">
 
 		<link rel="stylesheet" href="styles/style.css">
+		<link rel="stylesheet" href="styles/tabs.css">
 
 		<!-- https://patorjk.com/software/taag/ -->
 		<script src="assets/figlet.js"></script>
@@ -15,7 +16,13 @@
 	</head>
 	<body>
 		<div id="container">
+			<div id="tab-bar">
+				<div id="extreme-tab" class="tab-active">Extreme</div>
+				<div id="avaya-tab">Avaya</div>
+			</div>
+
 			<input id="input">
+
 			<textarea id="output"></textarea>
 		</div>
 	</body>
