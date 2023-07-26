@@ -575,7 +575,7 @@ var Figlet = Figlet || (function() {
 	// -------------------------------------------------------------------------
 	// object definition
 
-	return function() {
+	return function(preload) {
 		var me = this,
 			opts = null,
 			origOpts = null,
@@ -737,5 +737,13 @@ var Figlet = Figlet || (function() {
 
 			return output.join("\n");
 		};
+
+
+
+		// convenience method i made because i feel like it
+		if(preload) {
+			console.log("preloading")
+			me.load(preload);
+		}
 	};
 })();
