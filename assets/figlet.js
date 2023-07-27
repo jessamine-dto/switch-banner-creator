@@ -742,7 +742,6 @@ var Figlet = Figlet || (function() {
 
 		// convenience method i made because i feel like it
 		if(preload) {
-			console.log("preloading")
 			me.load(preload);
 		}
 	};

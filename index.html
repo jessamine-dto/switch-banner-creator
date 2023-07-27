@@ -7,8 +7,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="Creates login banners for JCS' ExtremeOS switches.">
 
+		<link rel="stylesheet" href="styles/fonts.css">
 		<link rel="stylesheet" href="styles/style.css">
 		<link rel="stylesheet" href="styles/tabs.css">
+		<link rel="stylesheet" href="styles/input.css">
 
 		<!-- https://patorjk.com/software/taag/ -->
 		<script src="assets/figlet.js"></script>
@@ -17,13 +19,28 @@
 	<body>
 		<div id="container">
 			<div id="tab-bar">
-				<div id="extreme-tab" class="tab-active">Extreme</div>
-				<div id="avaya-tab">Avaya</div>
+				<div id="extreme-tab" class="tab tab-active">Extreme</div>
+				<div id="avaya-tab" class="tab">Avaya</div>
 			</div>
 
-			<input id="input">
+			<div id="input-container">
+				<input type="checkbox" id="input-type-selector">
+				<label for="input-type">Manually input text</label>
+
+
+				<div id="dropdown-input" class="input-type">
+
+				</div>
+
+				<div id="manual-input" class="input-type">
+					<input id="input">
+				</div>
+			</div>
 
 			<textarea id="output"></textarea>
 		</div>
+
+
+		<!-- this needs a complete redesign -->
 	</body>
 </html>
