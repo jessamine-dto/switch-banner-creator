@@ -1,9 +1,0 @@
-#input-type-selector:not(:checked) ~ #manual-input {
-	display: none;
-}
-
-
-
-#input-type-selector:checked ~ #dropdown-input {
-	display: none;
-}

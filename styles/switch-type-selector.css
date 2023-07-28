@@ -1,0 +1,47 @@
+#switch-type-selector {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+
+	column-gap: 2rem;
+
+	padding-bottom: 3rem;
+}
+
+
+
+.switch-type-button {
+	width: 100%;
+
+	background-color: transparent;
+	border: none;
+	outline: none;
+
+	height: 3rem;
+	font: 1.5rem Lato;
+
+	padding: 0;
+
+	cursor: pointer;
+
+	transition: background-color 150ms;
+}
+
+
+
+.switch-type-button:hover {
+	background-color: var(--shade-1);
+}
+
+
+
+.switch-type-button:active {
+	background-color: var(--shade-5);
+}
+
+
+
+.switch-type-button.switch-type-active {
+	background-color: var(--shade-3);
+	cursor: default;
+}

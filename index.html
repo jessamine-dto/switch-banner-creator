@@ -8,39 +8,23 @@
 		<meta name="description" content="Creates login banners for JCS' ExtremeOS switches.">
 
 		<link rel="stylesheet" href="styles/fonts.css">
+		<link rel="stylesheet" href="styles/base.css">
 		<link rel="stylesheet" href="styles/style.css">
-		<link rel="stylesheet" href="styles/tabs.css">
-		<link rel="stylesheet" href="styles/input.css">
+		<link rel="stylesheet" href="styles/switch-type-selector.css">
 
 		<!-- https://patorjk.com/software/taag/ -->
 		<script src="assets/figlet.js"></script>
 		<script defer src="js/main.js" type="module"></script>
+		<script defer src="js/switch-type-selector.js" type="module"></script>
 	</head>
 	<body>
-		<div id="container">
-			<div id="tab-bar">
-				<div id="extreme-tab" class="tab tab-active">Extreme</div>
-				<div id="avaya-tab" class="tab">Avaya</div>
-			</div>
-
-			<div id="input-container">
-				<input type="checkbox" id="input-type-selector">
-				<label for="input-type">Manually input text</label>
-
-
-				<div id="dropdown-input" class="input-type">
-
-				</div>
-
-				<div id="manual-input" class="input-type">
-					<input id="input">
-				</div>
-			</div>
-
-			<textarea id="output"></textarea>
+		<div id="switch-type-selector">
+			<button class="switch-type-button switch-type-active" id="select-extreme">Extreme</button>
+			<button class="switch-type-button" id="select-avaya">Avaya</button>
 		</div>
 
 
-		<!-- this needs a complete redesign -->
+		<input id="input"><br />
+		<pre id="output" contenteditable="true"></pre>
 	</body>
 </html>

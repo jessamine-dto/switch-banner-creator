@@ -1,3 +1,8 @@
+import initializeButtons from "./switch-type-selector.js";
+
+
+
+
 const inputBox = document.getElementById("input") as HTMLInputElement;
 inputBox.addEventListener("keyup", generateBanner);
 
@@ -11,11 +16,6 @@ const figlet = await fetch("./assets/Doom.flf")
 	.then(res => res.text())
 	// @ts-expect-error
 	.then(text => new Figlet(text) as Figlet);
-
-
-
-// script tag has defer, this won't load until after the page is loaded
-generateBanner();
 
 
 
@@ -58,7 +58,6 @@ function generateBanner() {
 	}
 
 
-	// trim should be done separately
 	outputLines.push(...centerArray(figgedLines, targetLength));
 	outputLines.push("*".repeat(targetLength));
 
@@ -98,4 +97,9 @@ function centerArray(lines: string[], length: number): string[] {
 
 
 
-export {};
+
+// iife for page load (script tag has defer, this won't load until after the page is loaded)
+(() => {
+	generateBanner();
+	initializeButtons();
+})();

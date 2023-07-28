@@ -1,50 +1,5 @@
-:root {
-	--background-color: #212121;
-	--container-color: #2c2c2c;
-	--input-background: #424242;
-
-	--active-tab: #0049b0;
-	--inactive-tab: transparent;
-
-	--text-color: #ffffff;
-	--black: #000000;
-}
-
-
-
-body {
-	background-color: var(--background-color);
-}
-
-
-
-#container {
-	background-color: var(--container-color);
-	border: 1px solid var(--black);
-	box-shadow: 0 0 1rem 0.1rem var(--black);
-
-	position: absolute;
-	top: 50%;
-	left: 50%;
-
-	transform: translate(-50%, -50%);
-
-	display: flex;
-	flex-direction: column;
-
-	padding: 2.5rem;
-	border-radius: 1rem;
-
-	width: 75vmax;
-	aspect-ratio: 7 / 3;
-
-	justify-content: space-around;
-}
-
-
-
 #input {
-	background-color: var(--input-background);
+	background-color: var(--shade-5);
 	outline: none;
 
 	box-sizing: border-box;
@@ -72,9 +27,10 @@ body {
 
 
 #output {
-	height: 65%;
+	height: fit-content;
+	width: fit-content;
 
-	background-color: var(--black);
+	background-color: #000000;
 	color: var(--text-color);
 
 	padding: 1rem;
@@ -83,21 +39,7 @@ body {
 	outline: none;
 	resize: none;
 
-	white-space: nowrap;
-	/* overflow-x: scroll; */
-	/* overflow-y: hidden; */
+	white-space: pre;
+
+	font-family: monospace;
 }
-
-
-
-/* #output::-webkit-scrollbar {
-	background-color: #000;
-	height: 12px;
-}
-
-
-
-#output::-webkit-scrollbar-thumb {
-	background-color: #444;
-	border-radius: 100rem;
-} */
