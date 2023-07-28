@@ -1,4 +1,5 @@
-import initializeButtons from "./switch-type-selector.js";
+import FigletDoomFont from "./FigletDoomFont.js";
+import initializeButtons from "./switchTypeSelector.js";
 
 
 
@@ -15,7 +16,8 @@ const outputBox = document.getElementById("output") as HTMLTextAreaElement;
 const figlet = await fetch("./assets/Doom.flf")
 	.then(res => res.text())
 	// @ts-expect-error
-	.then(text => new Figlet(text) as Figlet);
+	.then(text => new Figlet(text) as Figlet)
+	.then(figlet => {console.log(figlet.getText("hey")); return figlet})
 
 
 
@@ -97,9 +99,13 @@ function centerArray(lines: string[], length: number): string[] {
 
 
 
-
 // iife for page load (script tag has defer, this won't load until after the page is loaded)
-(() => {
+(async () => {
 	generateBanner();
 	initializeButtons();
+
+
+	const doomFont = new FigletDoomFont();
+	await doomFont.load("./assets/Doom.flf");
+	console.log(doomFont.getText("h"));
 })();
