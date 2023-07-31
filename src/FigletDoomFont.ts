@@ -10,16 +10,8 @@ type FigChars = {
 
 
 const OPTIONS = {
-	fittingRules: {
-		hRule1: true,
-		hRule2: true,
-		hRule3: true,
-		hRule4: true,
-		hLayout: 3
-	},
-
-	hardBlank: "$",
-	eol: "@",
+	EOL: "@",
+	HARD_BLANK: "$",
 
 	numCommentLines: 16,
 	height: 8
@@ -27,8 +19,8 @@ const OPTIONS = {
 
 
 
-const HARDBLANK_REGEX = new RegExp(`\\${OPTIONS.hardBlank}`, "g");
-const END_CHAR_REGEX = new RegExp(`\\${OPTIONS.eol}+$`);
+const HARDBLANK_REGEX = new RegExp(`\\${OPTIONS.HARD_BLANK}`, "g");
+const END_CHAR_REGEX = new RegExp(`\\${OPTIONS.EOL}+$`);
 
 
 
@@ -41,7 +33,7 @@ export default class FigletDoomFont {
 
 
 	private smushHRule1(char1: string, char2: string) {
-		if (char1 === char2 && char1 !== OPTIONS.hardBlank) {
+		if (char1 === char2 && char1 !== OPTIONS.HARD_BLANK) {
 			return char1;
 		}
 
@@ -90,7 +82,7 @@ export default class FigletDoomFont {
 
 	private smushUniversal(char1: string, char2: string) {
 		if((char2 === "" || char2 === " ") ||
-			(char2 === OPTIONS.hardBlank && char1 !== " ")) {
+			(char2 === OPTIONS.HARD_BLANK && char1 !== " ")) {
 			return char1;
 		}
 
@@ -212,9 +204,6 @@ export default class FigletDoomFont {
 			let piece3 = textLine2.slice(overlap, textLine2Length);
 
 
-			// overlap < len2
-			// substr from (overlap) --> (overlap + (len2 - overlap))
-
 			output.push(piece1 + piece2 + piece3);
 		}
 
@@ -222,13 +211,7 @@ export default class FigletDoomFont {
 	}
 
 	private generateLineOfFigText(text: string) {
-		let outputText = [];
-
-		// useless
-		// TODO: disable
-		for(let row = 0; row < OPTIONS.height; row++) {
-			outputText[row] = "";
-		}
+		let outputText: string[] = new Array(OPTIONS.height).fill("");
 
 		for(let charIndex = 0; charIndex < text.length; charIndex++) {
 			const figChar = this.figChars[text.charCodeAt(charIndex)];
@@ -238,7 +221,7 @@ export default class FigletDoomFont {
 			let overlap = Infinity;
 
 			for(let row = 0; row < OPTIONS.height; row++) {
-				console.log(row)
+				// TODO: how to optimize this? this function is called way too much
 				overlap = Math.min(overlap, this.getHorizontalSmushLength(outputText[row], figChar[row]));
 			}
 
