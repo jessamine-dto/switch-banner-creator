@@ -1,3 +1,7 @@
+// a heavily stripped down version of https://patorjk.com/software/taag/
+
+
+
 type FigChars = {
 	[charCode: number]: string[],
 	numChars: number
@@ -15,6 +19,8 @@ const OPTIONS = {
 	},
 
 	hardBlank: "$",
+	eol: "@",
+
 	numCommentLines: 16,
 	height: 8
 }
@@ -22,10 +28,18 @@ const OPTIONS = {
 
 
 const HARDBLANK_REGEX = new RegExp(`\\${OPTIONS.hardBlank}`, "g");
+const END_CHAR_REGEX = new RegExp(`\\${OPTIONS.eol}+$`);
 
 
 
 export default class FigletDoomFont {
+	private figChars: FigChars;
+	private isLoaded: boolean;
+
+	private horizontalSmushLengthMemo: {[text1: string]: {[text2: string]: number}};
+
+
+
 	private smushHRule1(char1: string, char2: string) {
 		if (char1 === char2 && char1 !== OPTIONS.hardBlank) {
 			return char1;
@@ -75,7 +89,7 @@ export default class FigletDoomFont {
 	}
 
 	private smushUniversal(char1: string, char2: string) {
-		if((char2 === "" || char2 === "") ||
+		if((char2 === "" || char2 === " ") ||
 			(char2 === OPTIONS.hardBlank && char1 !== " ")) {
 			return char1;
 		}
@@ -84,8 +98,6 @@ export default class FigletDoomFont {
 	}
 
 
-
-	private horizontalSmushLengthMemo: {[text1: string]: {[text2: string]: number}};
 
 	// i have no clue how this function works i just rewrote it for funsies
 	private getHorizontalSmushLength(text1: string, text2: string) {
@@ -152,8 +164,6 @@ export default class FigletDoomFont {
 
 		this.horizontalSmushLengthMemo[text1][text2] = minDistance;
 
-		console.log(maxDistance, currentDistance);
-
 		return minDistance;
 	}
 
@@ -205,7 +215,7 @@ export default class FigletDoomFont {
 			// overlap < len2
 			// substr from (overlap) --> (overlap + (len2 - overlap))
 
-			output[i] = piece1 + piece2 + piece3;
+			output.push(piece1 + piece2 + piece3);
 		}
 
 		return output;
@@ -220,7 +230,6 @@ export default class FigletDoomFont {
 			outputText[row] = "";
 		}
 
-		// i = char index
 		for(let charIndex = 0; charIndex < text.length; charIndex++) {
 			const figChar = this.figChars[text.charCodeAt(charIndex)];
 
@@ -229,6 +238,7 @@ export default class FigletDoomFont {
 			let overlap = Infinity;
 
 			for(let row = 0; row < OPTIONS.height; row++) {
+				console.log(row)
 				overlap = Math.min(overlap, this.getHorizontalSmushLength(outputText[row], figChar[row]));
 			}
 
@@ -243,7 +253,6 @@ export default class FigletDoomFont {
 
 
 	// public methods
-
 	async load(url: string) {
 		const data = await fetch(url)
 			.then(res => res.text());
@@ -266,71 +275,25 @@ export default class FigletDoomFont {
 
 		charCodes.push(...[196, 214, 220, 228, 246, 252, 223]);
 
-		let endCharRegex;
 
-
-		// for loop can be written here? idk
 		while(lines.length > 0 && this.figChars.numChars < charCodes.length) {
 			let currentCharCode = charCodes[this.figChars.numChars];
 
-			this.figChars[currentCharCode] = lines.splice(0, OPTIONS.height);
-
-			for(let i = 0; i < OPTIONS.height; i++) {
-				let currentCharCodeAtLine = this.figChars[currentCharCode][i];
-
-				if(!currentCharCode) {
-					this.figChars[currentCharCode][i] = "";
-				} else {
-					endCharRegex = new RegExp(`\\${currentCharCodeAtLine.charAt(currentCharCodeAtLine.length - 1)}+$`);
-					this.figChars[currentCharCode][i] = currentCharCodeAtLine.replace(endCharRegex, "");
-				}
-			}
+			this.figChars[currentCharCode] = lines
+				.splice(0, OPTIONS.height)
+				.map(charLine => charLine.replace(END_CHAR_REGEX, ""));
 
 			this.figChars.numChars++;
 		}
 
-
-		while(lines.length > 0) {
-			let currentCharCode: number | string = lines.splice(0, 1)[0].split(" ")[0];
-
-			if ( /^0[xX][0-9a-fA-F]+$/.test(currentCharCode)) {
-				currentCharCode = parseInt(currentCharCode, 16);
-			} else if ( /^0[0-7]+$/.test(currentCharCode)) {
-				currentCharCode = parseInt(currentCharCode, 8);
-			} else if ( /^[0-9]+$/.test(currentCharCode)) {
-				currentCharCode = parseInt(currentCharCode, 10);
-			} else {
-				break;
-			}
-
-			this.figChars[currentCharCode] = lines.splice(0, OPTIONS.height);
-			// remove end sub-chars
-			for (let i = 0; i < OPTIONS.height; i++) {
-				let currentCharCodeAtLine = this.figChars[currentCharCode][i];
-
-				if (!currentCharCode) {
-					this.figChars[currentCharCode][i] = "";
-				} else {
-					endCharRegex = new RegExp(`\\${currentCharCodeAtLine.charAt(currentCharCodeAtLine.length - 1)}+$`);
-					this.figChars[currentCharCode][i] = currentCharCodeAtLine.replace(endCharRegex, "");
-				}
-			}
-
-			this.figChars.numChars++;
-		}
 
 		this.isLoaded = true;
 	}
-
-
-	private figChars: FigChars;
-	private isLoaded: boolean;
 
 	getText(text: string) {
 		if(this.isLoaded === false) {
 			return "";
 		}
-
 
 		return this.generateLineOfFigText(text).join("\n");
 	}

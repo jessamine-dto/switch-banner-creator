@@ -10,14 +10,8 @@ inputBox.addEventListener("keyup", generateBanner);
 const outputBox = document.getElementById("output") as HTMLTextAreaElement;
 
 
-
-// TODO: rewrite Figlet myself, to make it more efficient and in typescript
-// TODO: possibly make the "constructor" method i wrote
-const figlet = await fetch("./assets/Doom.flf")
-	.then(res => res.text())
-	// @ts-expect-error
-	.then(text => new Figlet(text) as Figlet)
-	.then(figlet => {console.log(figlet.getText("he")); return figlet})
+const figlet = new FigletDoomFont();
+await figlet.load("./assets/Doom.flf")
 
 
 
@@ -27,8 +21,9 @@ function generateBanner() {
 
 	const federalLaw = "18 USC $ 1030";
 
-	const splitWarningBanner = "*** THE NETWORK EQUIPMENT IS PROTECTED BY FEDERAL LAW ***";
-	const joinedWarningBanner = `*** THE NETWORK EQUIPMENT IS PROTECTED BY FEDERAL LAW ${federalLaw} ***`;
+	const warningText = " WARNING ";
+	const splitWarningBanner = " THE NETWORK EQUIPMENT IS PROTECTED BY FEDERAL LAW ";
+	const joinedWarningBanner = ` THE NETWORK EQUIPMENT IS PROTECTED BY FEDERAL LAW ${federalLaw} `;
 
 
 	const figgedTextLength = figgedLines[0].length;
@@ -42,6 +37,7 @@ function generateBanner() {
 		// use the split banner
 		targetLength = splitWarningBanner.length;
 
+		outputLines.push(centerString(warningText, targetLength, "*"));
 		outputLines.push(splitWarningBanner);
 		outputLines.push(centerString(federalLaw, targetLength));
 	} else if(figgedTextLength > splitWarningBanner.length && figgedTextLength < joinedWarningBanner.length) {
@@ -49,14 +45,16 @@ function generateBanner() {
 		// use the split banner
 		targetLength = figgedTextLength;
 
-		outputLines.push(centerString(splitWarningBanner, targetLength, "*"));
+		outputLines.push(centerString(warningText, targetLength, "*"));
+		outputLines.push(centerString(splitWarningBanner, targetLength));
 		outputLines.push(centerString(federalLaw, targetLength));
 	} else {
 		// figged text is longer than the joined banner, so text length is the targetLength
 		// use the joined banner
 		targetLength = figgedTextLength;
 
-		outputLines.push(centerString(joinedWarningBanner, targetLength, "*"));
+		outputLines.push(centerString(warningText, targetLength, "*"));
+		outputLines.push(centerString(joinedWarningBanner, targetLength));
 	}
 
 
@@ -100,12 +98,7 @@ function centerArray(lines: string[], length: number): string[] {
 
 
 // iife for page load (script tag has defer, this won't load until after the page is loaded)
-(async () => {
+(() => {
 	generateBanner();
 	initializeButtons();
-
-
-	const doomFont = new FigletDoomFont();
-	await doomFont.load("./assets/Doom.flf");
-	console.log(doomFont.getText("he"));
 })();
