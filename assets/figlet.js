@@ -99,6 +99,7 @@ var Figlet = Figlet || (function() {
 		var rule4Str = "[] {} ()";
 		var r4_pos1 = rule4Str.indexOf(ch1);
 		var r4_pos2 = rule4Str.indexOf(ch2);
+
 		if (r4_pos1 !== -1 && r4_pos2 !== -1) {
 			if (Math.abs(r4_pos1-r4_pos2) <= 1) {
 				return "|";
@@ -160,6 +161,9 @@ var Figlet = Figlet || (function() {
 			if (breakAfter) {break;}
 			curDist++;
 		}
+
+		console.log(maxDist, curDist);
+
 		return Math.min(maxDist,curDist);
 	}
 

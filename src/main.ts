@@ -17,7 +17,7 @@ const figlet = await fetch("./assets/Doom.flf")
 	.then(res => res.text())
 	// @ts-expect-error
 	.then(text => new Figlet(text) as Figlet)
-	.then(figlet => {console.log(figlet.getText("hey")); return figlet})
+	.then(figlet => {console.log(figlet.getText("he")); return figlet})
 
 
 
@@ -107,5 +107,5 @@ function centerArray(lines: string[], length: number): string[] {
 
 	const doomFont = new FigletDoomFont();
 	await doomFont.load("./assets/Doom.flf");
-	console.log(doomFont.getText("h"));
+	console.log(doomFont.getText("he"));
 })();

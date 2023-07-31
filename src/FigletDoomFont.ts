@@ -52,7 +52,8 @@ export default class FigletDoomFont {
 		const char1Pos = hierarchySmushing.indexOf(char1);
 		const char2Pos = hierarchySmushing.indexOf(char2);
 
-		if(char1Pos && char2Pos && char1Pos !== char2Pos && Math.abs(char1Pos - char2Pos) !== 1) {
+		if(char1Pos !== -1 && char2Pos !== -1 &&
+			char1Pos !== char2Pos && Math.abs(char1Pos - char2Pos) !== 1) {
 			return hierarchySmushing.charAt(Math.max(char1Pos, char2Pos));
 		}
 
@@ -65,7 +66,8 @@ export default class FigletDoomFont {
 		const char1Pos = oppositePairSmushing.indexOf(char1);
 		const char2Pos = oppositePairSmushing.indexOf(char2);
 
-		if(char1Pos && char2Pos && Math.abs(char1Pos - char2Pos) <= 1) {
+		if(char1Pos !== -1 && char2Pos !== -1 &&
+			Math.abs(char1Pos - char2Pos) <= 1) {
 			return "|";
 		}
 
@@ -83,7 +85,7 @@ export default class FigletDoomFont {
 
 
 
-	private horizontalSmushLengthMemo!: {[text1: string]: {[text2: string]: number}};
+	private horizontalSmushLengthMemo: {[text1: string]: {[text2: string]: number}};
 
 	// i have no clue how this function works i just rewrote it for funsies
 	private getHorizontalSmushLength(text1: string, text2: string) {
@@ -127,8 +129,8 @@ export default class FigletDoomFont {
 				validSmush = false;
 
 				validSmush = !!this.smushHRule1(text1Char, text2Char) ||
-				!!this.smushHRule2(text1Char, text2Char) ||
-				!!this.smushHRule3(text1Char, text2Char) ||
+					!!this.smushHRule2(text1Char, text2Char) ||
+					!!this.smushHRule3(text1Char, text2Char) ||
 					!!this.smushHRule4(text1Char, text2Char);
 
 				if (!validSmush) {
@@ -149,6 +151,8 @@ export default class FigletDoomFont {
 		}
 
 		this.horizontalSmushLengthMemo[text1][text2] = minDistance;
+
+		console.log(maxDistance, currentDistance);
 
 		return minDistance;
 	}
@@ -176,8 +180,9 @@ export default class FigletDoomFont {
 			// const segment2 = textLine2.slice(0, Math.min(overlap, textLine2Length));
 
 			for(let j = 0; j < overlap; j++) {
-				const char1 = textLine1.charAt(signedOverlapStart + j);
-				const char2 = textLine2.charAt(j);
+				const char1 = (j < textLine1Length) ? textLine1.charAt(signedOverlapStart + j) : " ";
+				const char2 = (j < textLine2Length) ? textLine2.charAt(j) : " ";
+
 
 				if(char1 === " " || char2 === " ") {
 					piece2 += this.smushUniversal(char1, char2);
@@ -185,16 +190,20 @@ export default class FigletDoomFont {
 				}
 
 
-				let nextCh: string | boolean = this.smushHRule1(char1, char2) ||
+				let nextCh = this.smushHRule1(char1, char2) ||
 					this.smushHRule2(char1, char2) ||
 					this.smushHRule3(char1, char2) ||
 					this.smushHRule4(char1, char2) ||
-					this.smushUniversal(char1, char2);
+					this.smushUniversal(char1, char2); // always returns string
 
 				piece2 += nextCh;
 			}
 
-			let piece3 = (overlap >= textLine2Length) ? "" : textLine2.slice(overlap, textLine2Length);
+			let piece3 = textLine2.slice(overlap, textLine2Length);
+
+
+			// overlap < len2
+			// substr from (overlap) --> (overlap + (len2 - overlap))
 
 			output[i] = piece1 + piece2 + piece3;
 		}
@@ -202,7 +211,7 @@ export default class FigletDoomFont {
 		return output;
 	}
 
-	private generateFigTextLine(text: string, figChars: FigChars) {
+	private generateLineOfFigText(text: string) {
 		let outputText = [];
 
 		// useless
@@ -213,7 +222,7 @@ export default class FigletDoomFont {
 
 		// i = char index
 		for(let charIndex = 0; charIndex < text.length; charIndex++) {
-			const figChar = figChars[text.charCodeAt(charIndex)];
+			const figChar = this.figChars[text.charCodeAt(charIndex)];
 
 			if (!figChar) continue;
 
@@ -227,14 +236,8 @@ export default class FigletDoomFont {
 			outputText = this.horizontalSmush(outputText, figChar, overlap);
 		}
 
-		// always equal to 8?
-		for(let row = 0; row < outputText.length; row++) {
-			outputText[row] = outputText[row].replace(HARDBLANK_REGEX, " ");
-		}
 
-		return outputText;
-
-		// return outputText.map(row => row.replace(HARDBLANK_REGEX, " "));
+		return outputText.map(row => row.replace(HARDBLANK_REGEX, " "));
 	}
 
 
@@ -249,6 +252,11 @@ export default class FigletDoomFont {
 		if(lines.length === 0) {
 			return;
 		}
+
+		// headerData - line 1
+		// comment lines - line 2 - (1 + numCommentLines)
+		lines.splice(0, OPTIONS.numCommentLines + 1);
+
 
 		const charCodes = [];
 
@@ -265,7 +273,7 @@ export default class FigletDoomFont {
 		while(lines.length > 0 && this.figChars.numChars < charCodes.length) {
 			let currentCharCode = charCodes[this.figChars.numChars];
 
-			this.figChars[currentCharCode] = lines.slice(0, OPTIONS.height);
+			this.figChars[currentCharCode] = lines.splice(0, OPTIONS.height);
 
 			for(let i = 0; i < OPTIONS.height; i++) {
 				let currentCharCodeAtLine = this.figChars[currentCharCode][i];
@@ -273,7 +281,7 @@ export default class FigletDoomFont {
 				if(!currentCharCode) {
 					this.figChars[currentCharCode][i] = "";
 				} else {
-					endCharRegex = new RegExp(`\\${currentCharCodeAtLine.charAt(currentCharCodeAtLine.length - 1)}$`);
+					endCharRegex = new RegExp(`\\${currentCharCodeAtLine.charAt(currentCharCodeAtLine.length - 1)}+$`);
 					this.figChars[currentCharCode][i] = currentCharCodeAtLine.replace(endCharRegex, "");
 				}
 			}
@@ -300,10 +308,10 @@ export default class FigletDoomFont {
 			for (let i = 0; i < OPTIONS.height; i++) {
 				let currentCharCodeAtLine = this.figChars[currentCharCode][i];
 
-			if (!currentCharCode) {
-				this.figChars[currentCharCode][i] = "";
-			} else {
-					endCharRegex = new RegExp(`\\${currentCharCodeAtLine.charAt(currentCharCodeAtLine.length - 1)}$`);
+				if (!currentCharCode) {
+					this.figChars[currentCharCode][i] = "";
+				} else {
+					endCharRegex = new RegExp(`\\${currentCharCodeAtLine.charAt(currentCharCodeAtLine.length - 1)}+$`);
 					this.figChars[currentCharCode][i] = currentCharCodeAtLine.replace(endCharRegex, "");
 				}
 			}
@@ -324,10 +332,7 @@ export default class FigletDoomFont {
 		}
 
 
-		return text
-			.split("\n")
-			.map(line => this.generateFigTextLine(line, this.figChars))
-			.join("\n");
+		return this.generateLineOfFigText(text).join("\n");
 	}
 
 
