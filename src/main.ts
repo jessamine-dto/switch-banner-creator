@@ -1,5 +1,5 @@
 import FigletDoomFont from "./FigletDoomFont.js";
-import initializeButtons from "./switchTypeSelector.js";
+import {initializeButtons, getActiveTab} from "./switchTypeSelector.js";
 
 
 
@@ -15,7 +15,19 @@ await figlet.load("./assets/Doom.flf")
 
 
 
-function generateBanner() {
+export function generateBanner() {
+	const activeTab = getActiveTab();
+
+	if(activeTab === "select-extreme") {
+		generateExtremeBanner();
+	} else {
+		generateAvayaBanner();
+	}
+}
+
+
+
+function generateExtremeBanner() {
 	const figgedText = figlet.getText(inputBox.value);
 	const figgedLines = figgedText.split("\n");
 
@@ -97,8 +109,15 @@ function centerArray(lines: string[], length: number): string[] {
 
 
 
+// TODO: implement
+function generateAvayaBanner() {
+
+}
+
+
+
 // iife for page load (script tag has defer, this won't load until after the page is loaded)
 (() => {
-	generateBanner();
+	generateExtremeBanner();
 	initializeButtons();
 })();

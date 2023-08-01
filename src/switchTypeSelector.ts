@@ -1,10 +1,15 @@
+import {generateBanner} from "./main.js";
+
+
+
 // TODO: use window hashes to store tab
 const switchButtons = Array.from(document.getElementsByClassName("switch-type-button"));
 
+let activeTab = "";
 
 
 
-export default function initializeButtons() {
+export function initializeButtons() {
 	for(const button of switchButtons) {
 		button.addEventListener("click", ev => switchTab((<Element>ev.target).id));
 	}
@@ -19,6 +24,8 @@ function switchTab(id: string) {
 		return;
 	}
 
+	activeTab = id;
+
 
 	for(const button of switchButtons) {
 		button.classList.remove("switch-type-active");
@@ -26,4 +33,12 @@ function switchTab(id: string) {
 
 
 	target.classList.add("switch-type-active");
+
+	generateBanner();
+}
+
+
+
+export function getActiveTab() {
+	return activeTab;
 }
