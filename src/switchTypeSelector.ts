@@ -2,10 +2,9 @@ import {generateBanner} from "./main.js";
 
 
 
-// TODO: use window hashes to store tab
 const switchButtons = Array.from(document.getElementsByClassName("switch-type-button"));
 
-let activeTab = "";
+let activeTab = "select-extreme";
 
 
 

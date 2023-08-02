@@ -3,8 +3,8 @@ import {initializeButtons, getActiveTab} from "./switchTypeSelector.js";
 
 
 
-
-const inputBox = document.getElementById("input") as HTMLInputElement;
+// TODO: might need to completely restructure this code for the new input mechanism
+const inputBox = document.getElementById("wiring-closet-input") as HTMLInputElement;
 inputBox.addEventListener("keyup", generateBanner);
 
 const outputBox = document.getElementById("output") as HTMLTextAreaElement;

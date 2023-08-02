@@ -1,4 +1,4 @@
-#input {
+#wiring-closet-input {
 	background-color: var(--shade-5);
 	outline: none;
 
@@ -20,7 +20,7 @@
 
 
 
-#input:focus-within {
+#wiring-closet-input:focus-within {
 	border-bottom: 1px solid var(--text-color);
 }
 
