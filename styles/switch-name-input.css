@@ -1,7 +1,7 @@
 #switch-name-input {
 	display: flex;
 	width: 100%;
-	justify-content: center;
+	/* justify-content: center; */
 	gap: 1rem;
 }
 

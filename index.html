@@ -10,20 +10,26 @@
 		<link rel="stylesheet" href="styles/fonts.css">
 		<link rel="stylesheet" href="styles/base.css">
 		<link rel="stylesheet" href="styles/style.css">
-		<link rel="stylesheet" href="styles/switch-type-selector.css">
+		<!-- <link rel="stylesheet" href="styles/switch-type-selector.css"> -->
 		<link rel="stylesheet" href="styles/switch-name-input.css">
+		<link rel="stylesheet" href="styles/temp-layout.css">
 
 		<script defer src="js/main.js" type="module"></script>
 	</head>
 	<body>
-		<div id="switch-type-selector">
+		<!-- <div id="switch-type-selector">
 			<button class="switch-type-button switch-type-active" id="select-extreme">Extreme</button>
 			<button class="switch-type-button" id="select-avaya">Avaya</button>
+		</div> -->
+
+		<div id="fancy-separator-container">
+			<div id="fancy-separator"></div>
 		</div>
 
+		<h1 id="header">JCS Banner Creator (temporary layout)</h1>
 
-		<div id="switch-name-input">
-			<select id="school-selector">
+		<!-- <div id="switch-name-input"> -->
+			<!-- <select id="school-selector">
 				<option value="ASH">ASH</option>
 				<option value="BES">BES</option>
 				<option value="CO">CO</option>
@@ -40,19 +46,24 @@
 				<option value="WJHS">WJHS</option>
 				<option value="WJMS">WJMS</option>
 				<option value="override">Override</option>
-			</select>
+			</select> -->
 
-			<input id="wiring-closet-input" type="text">
+			<!-- <input id="wiring-closet-input" type="text"> -->
 
-			<select id="wiring-closet-selector">
+			<!-- <select id="wiring-closet-selector">
 				<option>MDF</option>
 				<option>IDF</option>
-			</select>
+			</select> -->
 
-			<input id="force-uppercase" type="checkbox">
+			<!-- <input id="force-uppercase" type="checkbox"> -->
+		<!-- </div> -->
+
+		<div id="io-container">
+			<input id="wiring-closet-input" type="text">
+
+			<pre id="output" contenteditable="true"></pre>
 		</div>
 
-
-		<pre id="output" contenteditable="true"></pre>
+		<span id="made-by">Made by Layne Ogden - Summer 2023</span>
 	</body>
 </html>
