@@ -72,7 +72,16 @@ body {
 
 
 
-#made-by {
+#tool-info {
+	display: flex;
+	flex-direction: column;
+
+	row-gap: 1rem;
+}
+
+
+
+#tool-info span {
 	font-size: 1rem;
 	font-style: italic;
 

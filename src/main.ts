@@ -1,4 +1,5 @@
 import FigletDoomFont from "./FigletDoomFont.js";
+import generateLastCommitText from "./generateLastCommitText.js";
 // import {initializeButtons, getActiveTab} from "./switchTypeSelector.js";
 
 
@@ -119,7 +120,9 @@ function generateAvayaBanner() {
 
 
 // iife for page load (script tag has defer, this won't load until after the page is loaded)
-(() => {
+(async () => {
 	generateExtremeBanner();
 	// initializeButtons();
+
+	await generateLastCommitText();
 })();
