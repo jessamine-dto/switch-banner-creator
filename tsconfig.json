@@ -13,15 +13,10 @@
 
 		"lib": ["ESNext", "DOM"],
 
-		"skipLibCheck": true,
 		"forceConsistentCasingInFileNames": true,
 
 		"rootDir": "./src",
-		"outDir": "./js",
-
-		"moduleResolution": "node",
-
-		"esModuleInterop": true
+		"outDir": "./js"
 	},
 
 	"include": ["./src"]

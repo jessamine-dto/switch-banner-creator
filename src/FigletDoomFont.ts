@@ -12,8 +12,6 @@ type FigChars = {
 const OPTIONS = {
 	EOL: "@",
 	HARD_BLANK: "$",
-
-	numCommentLines: 16,
 	height: 8
 }
 
@@ -32,7 +30,7 @@ export default class FigletDoomFont {
 
 
 
-	private smushHRule1(char1: string, char2: string) {
+	private horizontalSmush1(char1: string, char2: string) {
 		if (char1 === char2 && char1 !== OPTIONS.HARD_BLANK) {
 			return char1;
 		}
@@ -40,7 +38,7 @@ export default class FigletDoomFont {
 		return false;
 	}
 
-	private smushHRule2(char1: string, char2: string) {
+	private horizontalSmush2(char1: string, char2: string) {
 		const underscoreSmushing = "|/\\[]{}()<>";
 
 		if(char1 === "_" && underscoreSmushing.includes(char2)) {
@@ -52,7 +50,7 @@ export default class FigletDoomFont {
 		return false;
 	}
 
-	private smushHRule3(char1: string, char2: string) {
+	private horizontalSmush3(char1: string, char2: string) {
 		const hierarchySmushing = "| /\\ [] {} <>";
 
 		const char1Pos = hierarchySmushing.indexOf(char1);
@@ -66,7 +64,7 @@ export default class FigletDoomFont {
 		return false;
 	}
 
-	private smushHRule4(char1: string, char2: string) {
+	private horizontalSmush4(char1: string, char2: string) {
 		const oppositePairSmushing = "[] {} ()";
 
 		const char1Pos = oppositePairSmushing.indexOf(char1);
@@ -80,7 +78,7 @@ export default class FigletDoomFont {
 		return false;
 	}
 
-	private smushUniversal(char1: string, char2: string) {
+	private universalSmush(char1: string, char2: string) {
 		if((char2 === "" || char2 === " ") ||
 			(char2 === OPTIONS.HARD_BLANK && char1 !== " ")) {
 			return char1;
@@ -132,10 +130,10 @@ export default class FigletDoomFont {
 				breakAfterwards = true;
 				validSmush = false;
 
-				validSmush = !!this.smushHRule1(text1Char, text2Char) ||
-					!!this.smushHRule2(text1Char, text2Char) ||
-					!!this.smushHRule3(text1Char, text2Char) ||
-					!!this.smushHRule4(text1Char, text2Char);
+				validSmush = !!this.horizontalSmush1(text1Char, text2Char) ||
+					!!this.horizontalSmush2(text1Char, text2Char) ||
+					!!this.horizontalSmush3(text1Char, text2Char) ||
+					!!this.horizontalSmush4(text1Char, text2Char);
 
 				if (!validSmush) {
 					currentDistance--;
@@ -187,16 +185,16 @@ export default class FigletDoomFont {
 
 
 				if(char1 === " " || char2 === " ") {
-					piece2 += this.smushUniversal(char1, char2);
+					piece2 += this.universalSmush(char1, char2);
 					continue;
 				}
 
 
-				let nextCh = this.smushHRule1(char1, char2) ||
-					this.smushHRule2(char1, char2) ||
-					this.smushHRule3(char1, char2) ||
-					this.smushHRule4(char1, char2) ||
-					this.smushUniversal(char1, char2); // always returns string
+				let nextCh = this.horizontalSmush1(char1, char2) ||
+					this.horizontalSmush2(char1, char2) ||
+					this.horizontalSmush3(char1, char2) ||
+					this.horizontalSmush4(char1, char2) ||
+					this.universalSmush(char1, char2); // always returns string
 
 				piece2 += nextCh;
 			}
@@ -244,10 +242,6 @@ export default class FigletDoomFont {
 		if(lines.length === 0) {
 			return;
 		}
-
-		// headerData - line 1
-		// comment lines - line 2 - (1 + numCommentLines)
-		lines.splice(0, OPTIONS.numCommentLines + 1);
 
 
 		const charCodes = [];
