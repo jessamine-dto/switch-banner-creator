@@ -1,5 +1,6 @@
 on:
   push:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -8,8 +9,7 @@ jobs:
     - name: Checkout project
       uses: actions/checkout@v3
     - name: Build and push
-      uses: alexthemaster/action-build-typescript@master
+      uses: lanye74/action-build-typescript@master
       with:
-        pushToBranch: true
         branch: "gh-pages"
         githubToken: ${{ secrets.GITHUB_TOKEN }}
