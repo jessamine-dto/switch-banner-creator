@@ -1,0 +1,15 @@
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout project
+      uses: actions/checkout@v3
+    - name: Build and push
+      uses: alexthemaster/action-build-typescript@master
+      with:
+        pushToBranch: true
+        branch: "gh-pages"
+        githubToken: ${{ secrets.GITHUB_TOKEN }}
