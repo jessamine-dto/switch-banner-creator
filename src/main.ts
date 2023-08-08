@@ -1,10 +1,9 @@
 import FigletDoomFont from "./FigletDoomFont.js";
 import generateLastCommitText from "./generateLastCommitText.js";
-// import {initializeButtons, getActiveTab} from "./switchTypeSelector.js";
 
 
 
-// TODO: might need to completely restructure this code for the new input mechanism
+// TODO: might need to completely restructure this code
 const inputBox = document.getElementById("wiring-closet-input") as HTMLInputElement;
 inputBox.addEventListener("keyup", generateBanner);
 
@@ -17,14 +16,6 @@ await figlet.load("./assets/Doom.flf")
 
 
 export function generateBanner() {
-	// const activeTab = getActiveTab();
-
-	// if(activeTab === "select-extreme") {
-	// 	generateExtremeBanner();
-	// } else {
-	// 	generateAvayaBanner();
-	// }
-
 	generateExtremeBanner();
 }
 
@@ -110,12 +101,6 @@ function centerArray(lines: string[], length: number): string[] {
 	return lines.map(line => centerString(line, length, " "));
 }
 
-
-
-// TODO: implement
-function generateAvayaBanner() {
-
-}
 
 
 

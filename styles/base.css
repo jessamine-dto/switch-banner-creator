@@ -14,15 +14,8 @@
 
 	/* font-size: calc(1vh + 0.5vw); */
 
-	font-size: 1rem;
-}
-
-
-
-* {
-	font: 1rem Roboto;
 	color: var(--text-color);
-	/* -webkit-tap-highlight-color: transparent; */
+	font: 1em Roboto;
 }
 
 
