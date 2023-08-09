@@ -1,15 +1,6 @@
 body {
-	display: grid;
-
-	grid-template-areas:
-		"separator header"
-		"separator io"
-		"separator made-by";
-
-	grid-template-columns: auto 1fr;
-	grid-template-rows: auto 1fr auto;
-
-	row-gap: 1.5rem;
+	display: flex;
+	flex-direction: row;
 }
 
 
@@ -39,18 +30,23 @@ body {
 
 
 
-#header {
-	font-size: 2rem;
-	margin: 0;
+#content {
+	display: grid;
 
-	font-family: Lato;
-	font-weight: bold;
+	grid-template-rows: auto 1fr auto;
+	row-gap: 1.5rem;
+
+	padding: 1rem 0;
 }
 
 
 
-#io-container {
-	grid-area: io;
+#header {
+	font-size: 2.5rem;
+	margin: 0;
+
+	font-family: Lato;
+	font-weight: bold;
 }
 
 
@@ -71,7 +67,6 @@ body {
 	padding: 0.5rem;
 
 	font: 1.2rem Roboto;
-
 
 	width: 15rem;
 	margin-bottom: 0.5rem;
@@ -109,8 +104,6 @@ body {
 
 
 #tool-info {
-	grid-area: made-by;
-
 	display: flex;
 	flex-direction: column;
 
