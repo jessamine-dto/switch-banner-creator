@@ -52,7 +52,7 @@ body {
 
 
 #wiring-closet-input {
-	background-color: var(--shade-5);
+	background-color: var(--theme-black-lighter);
 	outline: none;
 
 	box-sizing: border-box;

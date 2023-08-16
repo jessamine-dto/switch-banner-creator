@@ -1,28 +1,22 @@
 :root {
-	--background-color: #242424;
+	--theme-blue: hsl(209, 100%, 22%);
+	/* --theme-blue-darker: hsl(209, 100%, 14%); */
 
-	--text-color-selection: #eeeeeefe;
-	--text-color: #eeeeee;
+	--theme-cyan: hsl(205, 72%, 66%);
 
-	--shade-0: #121212;
-	--shade-1: #2a2a2a;
-	--shade-2: #313131;
-	--shade-3: #363636;
-	--shade-4: #3b3b3b;
-	--shade-5: #424242;
-	--shade-6: #6c6c6c;
+	--theme-black: hsl(210, 33%, 9%);
+	--theme-black-lighter: hsl(210, 33%, 14%);
 
-	/* font-size: calc(1vh + 0.5vw); */
+	--theme-white: hsl(0, 0%, 100%);
 
+
+	--background-color: var(--theme-black);
+	--text-color: var(--theme-white);
+
+
+	/* arbitrary formula i made up */
+	font: max(16px, calc(0.8vmin + 0.3vmax)) Roboto;
 	color: var(--text-color);
-	font: 1em Roboto;
-}
-
-
-
-::selection {
-	background-color: var(--text-color-selection);
-	color: var(--background-color);
 }
 
 
@@ -32,6 +26,13 @@ body {
 	margin: 0;
 
 	height: 100vh;
-	padding: 1rem;
+	padding: 2rem;
 	box-sizing: border-box;
+}
+
+
+
+::selection {
+	background-color: var(--text-color);
+	color: var(--background-color);
 }
