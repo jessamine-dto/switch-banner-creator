@@ -20,8 +20,8 @@ type SimplifiedCommit = {
 
 
 
-async function fetchLastCommit(): Promise<string | SimplifiedCommit> {
-	return await fetch('https://api.github.com/repos/jessamine-dto/switch-banner-creator/commits?per_page=1')
+async function fetchLastCommit(repository: string): Promise<string | SimplifiedCommit> {
+	return await fetch(`https://api.github.com/repos/${repository}/commits?per_page=1`)
 		.then(res => res.json())
 		.then((res: GithubCommit[]) => {
 			return {
@@ -36,8 +36,8 @@ async function fetchLastCommit(): Promise<string | SimplifiedCommit> {
 
 
 
-export default async function generateLastCommitText() {
-	const lastCommit = await fetchLastCommit();
+export default async function generateLastCommitText(repository: string) {
+	const lastCommit = await fetchLastCommit(repository);
 
 	// i really hate how i had to write this it feels so clunky surely there's a better way
 	if(typeof lastCommit === "string") {
@@ -46,7 +46,7 @@ export default async function generateLastCommitText() {
 	}
 
 
-	const date = new Date(lastCommit.date).toLocaleDateString("en-US", {dateStyle: "long"});
+	const date = new Date(lastCommit.date).toLocaleDateString("en-US", {dateStyle: "short"});
 	const commit = lastCommit.sha.slice(0, 7);
 
 	// i also hate this directly accessing the element jhghjgdfhjkdfg

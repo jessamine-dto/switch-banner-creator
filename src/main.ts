@@ -3,6 +3,7 @@ import generateLastCommitText from "./generateLastCommitText.js";
 
 
 
+
 // TODO: might need to completely restructure this code
 const inputBox = document.getElementById("wiring-closet-input") as HTMLInputElement;
 inputBox.addEventListener("keyup", generateBanner);
@@ -11,7 +12,7 @@ const outputBox = document.getElementById("output") as HTMLTextAreaElement;
 
 
 const figlet = new FigletDoomFont();
-await figlet.load("./assets/Doom.flf")
+await figlet.load("./assets/Doom.flf");
 
 
 
@@ -109,5 +110,5 @@ function centerArray(lines: string[], length: number): string[] {
 	generateExtremeBanner();
 	// initializeButtons();
 
-	await generateLastCommitText();
+	await generateLastCommitText("jessamine-dto/switch-banner-creator");
 })();

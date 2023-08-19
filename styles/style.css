@@ -100,19 +100,3 @@ body {
 
 	font: 1rem monospace;
 }
-
-
-
-#tool-info {
-	display: flex;
-	flex-direction: column;
-
-	row-gap: 1rem;
-}
-
-
-
-#tool-info span {
-	font-style: italic;
-	opacity: 0.7;
-}

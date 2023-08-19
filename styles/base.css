@@ -6,12 +6,16 @@
 
 	--theme-black: hsl(210, 33%, 9%);
 	--theme-black-lighter: hsl(210, 33%, 14%);
+	--theme-black-darker: hsl(210, 33%, 5%);
 
 	--theme-white: hsl(0, 0%, 100%);
 
 
 	--background-color: var(--theme-black);
 	--text-color: var(--theme-white);
+	--grayer-color: hsl(0, 0%, 75%);
+
+	--standard-box-shadow: 1rem 1rem 1rem -0.5rem #0005;
 
 
 	/* arbitrary formula i made up */

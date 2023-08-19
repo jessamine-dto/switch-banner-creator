@@ -68,5 +68,5 @@ function centerArray(lines, length) {
 (async () => {
     generateExtremeBanner();
     // initializeButtons();
-    await generateLastCommitText();
+    await generateLastCommitText("jessamine-dto/switch-banner-creator");
 })();

@@ -1,0 +1,82 @@
+body {
+	overflow: hidden;
+}
+
+
+
+/* the point of this wrapper is essentially that
+	whenever a user hovers over the info icon, they shouldn't hover the info icon...
+	...and then when it fully expands it automatically closes because they're not hovering it anymore
+	instead, this can be circumvented (and i think it's generally nicer ux)
+	to have a wrapper around the tool's expanded position so that hovering anywhere in it will cause it to expand
+	padding on the bottom was originally so the box shadow didn't get cropped
+	but might as well add it to the top and call it a feature
+*/
+#tool-wrapper {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+
+	/* don't break mobile */
+	overflow: hidden;
+
+	padding: 3rem 0 3rem 4rem;
+}
+
+
+
+#tool-info {
+	display: grid;
+
+	grid-template-areas:
+		"info-icon made-by"
+		"info-icon last-updated";
+
+	row-gap: 0.5rem;
+	column-gap: 1.5rem;
+
+	border: 0.15rem solid var(--theme-black-darker);
+	background-color: var(--theme-black);
+	border-radius: 1rem;
+	box-shadow: var(--standard-box-shadow);
+
+	font-style: italic;
+	text-align: right;
+	color: var(--grayer-color);
+
+	padding: 1rem;
+
+	transform: translateX(calc(100% - 3.5rem));
+	transition: transform 0.8s cubic-bezier(0.8, -0.5, 0.7, 1);
+}
+
+
+
+#tool-wrapper:hover #tool-info {
+	transform: translateX(-1rem);
+	transition: transform 0.5s cubic-bezier(0.3, 0.9, 0.8, 1);
+}
+
+
+
+#info-icon {
+	grid-area: info-icon;
+
+	display: flex;
+	align-items: center;
+
+	font: normal bold 1.8em Roboto;
+}
+
+
+
+#made-by {
+	grid-area: made-by;
+	margin: 0;
+}
+
+
+
+#last-updated {
+	grid-area: last-updated;
+}
