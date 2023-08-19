@@ -84,7 +84,6 @@ function centerString(text: string, targetLength: number, paddingChar: string = 
 		return text;
 	}
 
-
 	targetLength = Math.max(text.length, targetLength);
 
 	const onEitherSide = (targetLength - text.length) / 2;
