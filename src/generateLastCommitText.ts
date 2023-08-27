@@ -1,7 +1,3 @@
-const versionSpan = document.getElementById("last-updated") as HTMLSpanElement;
-
-
-
 type GithubCommit = {
 	commit: {
 		author: {
@@ -13,42 +9,33 @@ type GithubCommit = {
 
 
 
-type SimplifiedCommit = {
-	date: string;
-	sha: string;
-}
-
-
-
-async function fetchLastCommit(repository: string): Promise<string | SimplifiedCommit> {
+async function fetchLastCommit(repository: string): Promise<GithubCommit | null> {
 	return await fetch(`https://api.github.com/repos/${repository}/commits?per_page=1`)
-		.then(res => res.json())
-		.then((res: GithubCommit[]) => {
-			return {
-				date: res[0].commit.author.date,
-				sha: res[0].sha
-			}
-		})
-		.catch(err => {
-			return "Unable to load version";
-		});
+		.then(res => res.ok ? res.json() : null) // if res is not ok, return null;
+		.then((res: GithubCommit[]) => res[0]) // then this will error trying to perform null[0]
+		.catch(() => null); // and be caught here
 }
 
 
 
-export default async function generateLastCommitText(repository: string) {
+async function generateLastCommitText(repository: string) {
 	const lastCommit = await fetchLastCommit(repository);
 
-	// i really hate how i had to write this it feels so clunky surely there's a better way
-	if(typeof lastCommit === "string") {
-		versionSpan.textContent = "Unable to load version";
-		return;
+	if(lastCommit === null) {
+		return "Unable to load version";
 	}
 
 
-	const date = new Date(lastCommit.date).toLocaleDateString("en-US", {dateStyle: "short"});
-	const commit = lastCommit.sha.slice(0, 7);
+	const commitDate = lastCommit.commit.author.date;
+	const formattedDate = new Date(commitDate).toLocaleDateString("en-US", {dateStyle: "short"});
 
-	// i also hate this directly accessing the element jhghjgdfhjkdfg
-	versionSpan.textContent = `Last updated ${date} (commit ${commit})`;
+	const formattedHash = lastCommit.sha.slice(0, 7);
+
+	return `Last updated ${formattedDate} (commit ${formattedHash})`;
+}
+
+
+
+export default async function assignLastCommitToElement(element: HTMLElement, repository: string) {
+	element.textContent = await generateLastCommitText(repository);
 }

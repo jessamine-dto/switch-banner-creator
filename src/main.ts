@@ -1,6 +1,6 @@
 import FigletDoomFont from "./FigletDoomFont.js";
+import assignLastCommitToElement from "./generateLastCommitText.js";
 import generateLastCommitText from "./generateLastCommitText.js";
-
 
 
 
@@ -9,6 +9,9 @@ const inputBox = document.getElementById("wiring-closet-input") as HTMLInputElem
 inputBox.addEventListener("keyup", generateBanner);
 
 const outputBox = document.getElementById("output") as HTMLTextAreaElement;
+
+const lastUpdated = document.getElementById("last-updated") as HTMLSpanElement;
+assignLastCommitToElement(lastUpdated, "jessamine-dto/switch-banner-creator");
 
 
 const figlet = new FigletDoomFont();
@@ -103,11 +106,4 @@ function centerArray(lines: string[], length: number): string[] {
 
 
 
-
-// iife for page load (script tag has defer, this won't load until after the page is loaded)
-(async () => {
-	generateExtremeBanner();
-	// initializeButtons();
-
-	await generateLastCommitText("jessamine-dto/switch-banner-creator");
-})();
+generateExtremeBanner();

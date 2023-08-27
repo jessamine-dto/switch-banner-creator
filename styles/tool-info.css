@@ -5,11 +5,12 @@ body {
 
 
 /* the point of this wrapper is essentially that
-	whenever a user hovers over the info icon, they shouldn't hover the info icon...
-	...and then when it fully expands it automatically closes because they're not hovering it anymore
-	instead, this can be circumvented (and i think it's generally nicer ux)
-	to have a wrapper around the tool's expanded position so that hovering anywhere in it will cause it to expand
-	padding on the bottom was originally so the box shadow didn't get cropped
+	a user hovers over the info icon, but when the tool expands they're not hovering it anymore (because of the margin)
+	thus the tool closes, intersecting the cursor, causing it to expand, causing it to not be hovered; ping-ponging
+	instead, this can be circumvented (and i think it's generally nicer ux) by having a wrapper
+	that goes around the tool's expanded position, so that hovering anywhere in it will cause it to expand
+
+	the padding on the bottom was originally so the box shadow didn't get cropped
 	but might as well add it to the top and call it a feature
 */
 #tool-wrapper {
