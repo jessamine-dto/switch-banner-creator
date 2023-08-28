@@ -20,6 +20,9 @@ const OPTIONS = {
 const HARDBLANK_REGEX = new RegExp(`\\${OPTIONS.HARD_BLANK}`, "g");
 const END_CHAR_REGEX = new RegExp(`\\${OPTIONS.EOL}+$`);
 
+const CARRIAGE_AND_NEWLINE_REGEX = new RegExp("\\r\\n", "g");
+const CARRIAGE_REGEX = new RegExp("\\r", "g");
+
 
 
 export default class FigletDoomFont {
@@ -91,6 +94,17 @@ export default class FigletDoomFont {
 
 	// i have no clue how this function works i just rewrote it for funsies
 	private getHorizontalSmushLength(text1: string, text2: string) {
+		let text1InMemo = false;
+
+		if(this.horizontalSmushLengthMemo[text1]) {
+			text1InMemo = true;
+
+			if(this.horizontalSmushLengthMemo[text1][text2]) {
+				return this.horizontalSmushLengthMemo[text1][text2];
+			}
+		}
+
+
 		const text1Length = text1.length;
 		const text2Length = text2.length;
 
@@ -101,17 +115,6 @@ export default class FigletDoomFont {
 		let validSmush = false;
 
 		if(text1Length === 0) return 0;
-
-
-		let text1InMemo = false;
-
-		if(this.horizontalSmushLengthMemo[text1]) {
-			text1InMemo = true;
-
-			if(this.horizontalSmushLengthMemo[text1][text2]) {
-				return this.horizontalSmushLengthMemo[text1][text2];
-			}
-		}
 
 
 
@@ -238,7 +241,8 @@ export default class FigletDoomFont {
 		const data = await fetch(url)
 			.then(res => res.text());
 
-		let lines = data.replace(/\r\n/g, "\n").replace(/\r/g, "\n").split("\n");
+		let lines = data.replace(CARRIAGE_AND_NEWLINE_REGEX, "\n").replace(CARRIAGE_REGEX, "\n").split("\n");
+
 		if(lines.length === 0) {
 			return;
 		}
