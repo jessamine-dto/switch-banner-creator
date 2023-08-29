@@ -1,6 +1,9 @@
 import assignGeneratedBannerToElement from "./banner/generateBanner.js";
-import assignLastCommitToElement from "./generateLastCommitText.js";
 import initalizeSchoolDropdown from "./input/dropdown.js";
+
+
+
+export const IS_DEVELOPMENT = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
 
 
 
@@ -13,10 +16,15 @@ inputBox.addEventListener("keyup", () => {
 });
 
 
-const lastUpdated = document.getElementById("last-updated") as HTMLSpanElement;
-await assignLastCommitToElement(lastUpdated, "jessamine-dto/switch-banner-creator");
-
-
 
 await initalizeSchoolDropdown();
 assignGeneratedBannerToElement(outputBox, "");
+
+
+
+if(IS_DEVELOPMENT === false) {
+	const assignLastCommitToElement = (await import("./generateLastCommitText.js")).default;
+	const lastUpdated = document.getElementById("last-updated") as HTMLSpanElement;
+
+	await assignLastCommitToElement(lastUpdated, "jessamine-dto/switch-banner-creator");
+}
