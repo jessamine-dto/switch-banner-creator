@@ -5,7 +5,7 @@ import initalizeSchoolDropdown from "./input/dropdown.js";
 
 
 // TODO: might need to completely restructure this code
-const inputBox = document.getElementById("wiring-closet-input") as HTMLInputElement;
+const inputBox = document.getElementById("wiring-closet") as HTMLInputElement;
 const outputBox = document.getElementById("output") as HTMLTextAreaElement;
 
 inputBox.addEventListener("keyup", () => {

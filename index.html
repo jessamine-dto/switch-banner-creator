@@ -12,6 +12,7 @@
 		<link rel="stylesheet" href="styles/fonts.css">
 		<link rel="stylesheet" href="styles/base.css">
 		<link rel="stylesheet" href="styles/style.css">
+		<link rel="stylesheet" href="styles/input.css">
 		<link rel="stylesheet" href="styles/tool-info.css">
 
 		<script defer src="js/main.js" type="module"></script>
@@ -19,15 +20,17 @@
 	<body>
 		<h1 id="header">Switch Banner Creator</h1>
 
-		<div id="io-container">
-			<input id="wiring-closet-input" type="text">
-
-			<div id="switch-input-container">
-				<select id="school-select"></select>
-			</div>
-
-			<pre id="output" contenteditable="true"></pre>
+		<div id="composite-input">
+			<select id="school-select"></select>
+			<input id="wiring-closet" type="text">
+			<select id="closet-type-select">
+				<option class="default-select">select...</option>
+				<option>MDF</option>
+				<option>IDF</option>
+			</select>
 		</div>
+
+		<pre id="output" contenteditable="true"></pre>
 
 
 		<div id="tool-wrapper">

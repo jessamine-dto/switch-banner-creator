@@ -1,6 +1,8 @@
 body {
 	display: flex;
 	flex-direction: column;
+
+	gap: 2rem;
 }
 
 
@@ -11,36 +13,6 @@ body {
 
 	font-family: Lato;
 	font-weight: bold;
-}
-
-
-
-#wiring-closet-input {
-	background-color: var(--theme-black-lighter);
-	outline: none;
-
-	box-sizing: border-box;
-	border: none;
-	border-bottom: 1px solid transparent;
-
-	transition: border-bottom-color 0.15s ease-in;
-
-	color: var(--text-color);
-	text-align: center;
-
-	padding: 0.5rem;
-
-	font: 1.2rem Roboto;
-
-	width: 15rem;
-	margin-bottom: 0.5rem;
-	height: fit-content;
-}
-
-
-
-#wiring-closet-input:focus-within {
-	border-bottom-color: var(--text-color);
 }
 
 

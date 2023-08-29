@@ -1,0 +1,67 @@
+#composite-input {
+	display: flex;
+	flex-direction: row;
+
+	width: fit-content;
+	padding: 0 0.5rem;
+
+	background-color: var(--theme-black-lighter);
+	gap: 1rem;
+}
+
+
+
+#composite-input > * {
+	height: 100%;
+	background-color: transparent;
+
+	border: none;
+	outline: none;
+	box-sizing: border-box;
+
+	color: var(--text-color);
+	font: 1.2rem Roboto;
+}
+
+
+
+select {
+	width: min-content;
+	background-color: transparent;
+}
+
+
+
+select option {
+	background-color: var(--theme-black-lighter);
+}
+
+
+
+select .default-select {
+	display: none;
+}
+
+
+
+#school-select {
+	padding-right: 0.25rem;
+}
+
+
+
+#wiring-closet {
+	width: 10rem;
+	height: 100%;
+
+	margin-bottom: 0.5rem;
+
+	border-bottom: 1px solid transparent;
+	transition: border-bottom-color 0.15s ease-in;
+}
+
+
+
+#wiring-closet:focus-within {
+	border-bottom-color: var(--text-color);
+}
