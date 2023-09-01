@@ -1,0 +1,42 @@
+:root {
+	--theme-blue: hsl(209, 100%, 22%);
+	/* --theme-blue-darker: hsl(209, 100%, 14%); */
+
+	--theme-cyan: hsl(205, 72%, 66%);
+
+	--theme-black: hsl(210, 33%, 9%);
+	--theme-black-lighter: hsl(210, 33%, 14%);
+	--theme-black-darker: hsl(210, 33%, 5%);
+
+	--theme-white: hsl(0, 0%, 100%);
+
+
+	--background-color: var(--theme-black);
+	--text-color: var(--theme-white);
+	--grayer-color: hsl(0, 0%, 75%);
+
+	--standard-box-shadow: 1rem 1rem 1rem -0.5rem #0005;
+
+
+	/* arbitrary formula i made up */
+	font: max(16px, calc(0.8vmin + 0.3vmax)) Roboto;
+	color: var(--text-color);
+}
+
+
+
+body {
+	background-color: var(--background-color);
+	margin: 0;
+
+	height: 100vh;
+	padding: 2rem;
+	box-sizing: border-box;
+}
+
+
+
+::selection {
+	background-color: var(--text-color);
+	color: var(--background-color);
+}
