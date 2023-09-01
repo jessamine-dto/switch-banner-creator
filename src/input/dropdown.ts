@@ -1,4 +1,4 @@
-const schoolSelect = document.getElementById("school-select")!;
+const schoolSelect = document.getElementById("school-select") as HTMLSelectElement;
 
 
 
@@ -25,22 +25,14 @@ export default async function initalizeSchoolDropdown() {
 		.map(schoolName => generateOption(schoolName));
 
 
-	const blankOption = generateOption("select...", "default-select");
-
-	schoolSelect.append(blankOption, ...optionArray);
+	schoolSelect.append(...optionArray);
 }
 
 
 
-function generateOption(schoolName: string, className?: string) {
+function generateOption(schoolName: string) {
 	const option = document.createElement("option");
-
 	option.textContent = schoolName;
-
-	// couldn't figure out a more idiomatic way to do this
-	if(className) {
-		option.className = className;
-	}
 
 	return option;
 }
